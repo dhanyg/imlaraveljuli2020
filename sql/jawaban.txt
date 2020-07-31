@@ -1,0 +1,93 @@
+Soal 1 Membuat Database
+Jawaban: CREATE DATABASE myshop;
+
+Soal 2 Membuat Table di Dalam Database
+Jawaban:
+CREATE TABLE `myshop`.`users` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`name` VARCHAR(255) NOT NULL,
+`email` VARCHAR(255) NOT NULL,
+`password` VARCHAR(255) NOT NULL,
+PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `myshop`.`categories` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`name` VARCHAR(255) NOT NULL,
+PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `myshop`.`items` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`name` VARCHAR(255) NOT NULL,
+`description` VARCHAR(255) NOT NULL,
+`price` INT NOT NULL,
+`stock` INT NOT NULL,
+`category_id` INT NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY(`category_id`) REFERENCES categories(`id`)
+);
+
+Soal 3 Memasukkan Data pada Table
+Jawaban:
+INSERT INTO `myshop`.`users` (`name`, `email`, `password`)
+VALUES ('John Doe', 'john@doe.com', 'john123'),
+('Jane Doe', 'jane@doe.com', 'jenita123');
+
+INSERT INTO `myshop`.`categories` (`name`) VALUES ('gadget'),
+('cloth'), ('men'), ('women'), ('branded');
+
+INSERT INTO `myshop`.`items`
+(`name`, `description`, `price`, `stock`, `category_id`)
+VALUES ('Sumsang b50', 'hape keren dari merek Sumsang', 4000000, 100, 1),
+('Uniklooh', 'baju keren dari brand ternama', 500000, 50, 2),
+('IMHO Watch', 'jam tangan anak yang jujur banget', 2000000, 10, 1);
+
+Soal 4 Mengambil Data dari Database
+a. Mengambil data users
+Jawaban:
+SELECT id, name, email FROM users;
++----+----------+--------------+
+| id | name     | email        |
++----+----------+--------------+
+|  1 | John Doe | john@doe.com |
+|  2 | Jane Doe | jane@doe.com |
++----+----------+--------------+
+
+b. Mengambil data items
+Jawaban:
+SELECT * FROM items WHERE price > 1000000;
++----+-------------+-----------------------------------+---------+-------+-------------+
+| id | name        | description                       | price   | stock | category_id |
++----+-------------+-----------------------------------+---------+-------+-------------+
+|  1 | Sumsang b50 | hape keren dari merek Sumsang     | 4000000 |   100 |           1 |
+|  3 | IMHO Watch  | jam tangan anak yang jujur banget | 2000000 |    10 |           1 |
++----+-------------+-----------------------------------+---------+-------+-------------+
+
+SELECT * FROM items WHERE name LIKE '%uniklo%';
++----+----------+-------------------------------+--------+-------+-------------+
+
+| id | name     | description                   | price  | stock | category_id |
+
++----+----------+-------------------------------+--------+-------+-------------+
+
+|  2 | Uniklooh | baju keren dari brand ternama | 500000 |    50 |           2 |
+
++----+----------+-------------------------------+--------+-------+-------------+
+
+c. Menampilkan data items join dengan kategori
+Jawaban:
+SELECT `items`.`name`, `description`, `price`, `stock`, `category_id`, `categories`.`name` AS kategori
+FROM `items`
+JOIN `categories` ON `items`.`category_id` = `categories`.`id` ORDER BY `items`.`id`;
++-------------+-----------------------------------+---------+-------+-------------+----------+
+| name        | description                       | price   | stock | category_id | kategori |
++-------------+-----------------------------------+---------+-------+-------------+----------+
+| Sumsang b50 | hape keren dari merek Sumsang     | 4000000 |   100 |           1 | gadget   |
+| Uniklooh    | baju keren dari brand ternama     |  500000 |    50 |           2 | cloth    |
+| IMHO Watch  | jam tangan anak yang jujur banget | 2000000 |    10 |           1 | gadget   |
++-------------+-----------------------------------+---------+-------+-------------+----------+
+
+Soal 5 Mengubah Data dari Database
+Jawaban:
+UPDATE `items` SET `price` = 2500000 WHERE `items`.`name` LIKE '%sumsang%';
