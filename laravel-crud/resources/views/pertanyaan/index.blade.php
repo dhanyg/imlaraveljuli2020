@@ -19,7 +19,7 @@
         
         <div class="row px-3">
             @forelse ($questions as $question)
-            <div class="col-lg-3 col-md-6">
+            <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="card">
                     <div class="card-header bg-info">
                         <h5 class="card-title text-white text-bold">{{ $question->judul }}</h5>
@@ -56,7 +56,6 @@
             e.preventDefault();
             Swal.fire({
                 title: 'Yakin ingin menghapus pertanyaan?',
-                // text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pertanyaan;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
@@ -38,7 +39,7 @@ class PertanyaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
+            'judul' => 'required|unique:questions',
             'isi' => 'required'
         ]);
 
@@ -86,7 +87,7 @@ class PertanyaanController extends Controller
     public function update($id, Request $request)
     {
         $request->validate([
-            'judul' => 'required',
+            'judul' => ['required', Rule::unique('questions')->ignore($id),],
             'isi' => 'required'
         ]);
 

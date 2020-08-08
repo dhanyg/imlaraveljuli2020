@@ -17,7 +17,7 @@
                             <label for="judul">Judul</label>
                             <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" id="judul" value="{{ old('judul', $data->judul) }}" autofocus>
                             @error('judul')
-                            <small class="mt-2 form-text text-danger">Judul harus diisi</small>
+                            <small class="mt-2 form-text text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">

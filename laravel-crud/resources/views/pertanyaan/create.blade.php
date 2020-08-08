@@ -14,14 +14,14 @@
                         @csrf
                         <div class="form-group">
                             <label for="judul">Judul</label>
-                            <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" id="judul" autofocus>
+                            <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" id="judul" value="{{ old('judul', '') }}" autofocus>
                             @error('judul')
-                            <small class="mt-2 form-text text-danger">Judul harus diisi</small>
+                            <small class="mt-2 form-text text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="isi">Isi pertanyaan</label>
-                            <textarea name="isi" id="isi" cols="30" rows="10" class="form-control @error('isi') is-invalid @enderror"></textarea>
+                            <textarea name="isi" id="isi" cols="30" rows="10" class="form-control @error('isi') is-invalid @enderror">{{ old('isi', '') }}</textarea>
                             @error('isi')
                             <small class="mt-2 form-text text-danger">Isi pertanyaan harus diisi</small>
                             @enderror
