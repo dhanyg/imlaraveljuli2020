@@ -15,7 +15,7 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
-        $questions = DB::table('questions')->get();
+        $questions = DB::table('questions')->orderBy('id', 'desc')->get();
         return view('pertanyaan.index', compact('questions'));
     }
 
@@ -44,7 +44,8 @@ class PertanyaanController extends Controller
 
         DB::table('questions')->insert([
             'judul' => $request->judul,
-            'isi' => $request->isi
+            'isi' => $request->isi,
+            'created_at' => \Carbon\Carbon::now('Asia/Jakarta')
         ]);
 
         return redirect('/pertanyaan')->with('success', 'Pertanyaan telah dipublish');
@@ -93,7 +94,8 @@ class PertanyaanController extends Controller
             ->where('id', $id)
             ->update([
                 'judul' => $request->judul,
-                'isi' => $request->isi
+                'isi' => $request->isi,
+                'updated_at' => \Carbon\Carbon::now('Asia/Jakarta')
             ]);
 
         return redirect('/pertanyaan')->with('success', 'Pertanyaan berhasil diubah');
